@@ -12,6 +12,7 @@
   "dependencies": {
     "dgram": "^1.0.1",
     "express": "^4.19.2",
+    "figlet": "^1.7.0",
     "node-cron": "^3.0.3",
     "winston": "^3.14.2"
   }

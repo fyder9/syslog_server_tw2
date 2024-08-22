@@ -1,12 +1,24 @@
 const dgram = require('dgram') //udp packets management library
 const winston = require('winston') //log management library
 const cron = require('node-cron') //time library
+const figlet = require('figlet')
+
+figlet('TW2', function(err, data) {
+    if (err) {
+      console.log('Something went wrong...');
+      console.dir(err);
+      return;
+    }
+    console.log(data);
+  });
+
 //configuring logging
 const logger = winston.createLogger({
     transports: [
         new winston.transports.File({ filename: 'syslog.log'})
     ]
 });
+
 //creating udp server
 const server = dgram.createSocket('udp4');
 //Manage received messages
@@ -14,7 +26,8 @@ server.on('message', (msg,rinfo)=>{
     const logMessage = `Received log from ${rinfo.address}:${rinfo.port} - ${msg}`;
     logger.info(logMessage);
     console.log(logMessage);
-})
+});
+
 //server error manager
 server.on('error', (err) => {
     console.error(`Server error:\n${err.stack}`);
